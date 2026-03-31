@@ -1,12 +1,14 @@
 import pandas as pd
 from pathlib import Path
 from src.utils.logger import get_logger
+from src.utils.config import load_config
 
 logger = get_logger(__name__)
+config = load_config()
 
-RAW_PATH = Path("data/raw/transactions_raw.csv")
+RAW_PATH = Path(config["paths"]["raw"])
 SILVER_DIR = Path("data/silver")
-SILVER_PATH = SILVER_DIR / "transactions_clean.csv"
+SILVER_PATH = Path(config["paths"]["silver"])
 
 REQUIRED_COLUMNS = [
     "transaction_id",
@@ -33,7 +35,7 @@ STATUS_MAPPING = {
 }
 
 VALID_STATUS = {"approved", "declined", "pending"}
-SUSPICIOUS_COUNTRIES = {"NG", "RU"}
+SUSPICIOUS_COUNTRIES = set(config["fraud_rules"]["suspicious_countries"])
 
 
 def validate_schema(df: pd.DataFrame) -> None:
@@ -88,7 +90,9 @@ def clean_transactions(df: pd.DataFrame) -> pd.DataFrame:
     df = normalize_status_values(df)
 
     before = len(df)
-    df = df.dropna(subset=["transaction_id", "user_id", "timestamp", "amount", "country", "status"])
+    df = df.dropna(
+        subset=["transaction_id", "user_id", "timestamp", "amount", "country", "status"]
+    )
     logger.info(f"Rows removed due to nulls/invalid parsing: {before - len(df)}")
 
     before = len(df)
@@ -118,7 +122,8 @@ def clean_transactions(df: pd.DataFrame) -> pd.DataFrame:
 def add_fraud_logic(df: pd.DataFrame) -> pd.DataFrame:
     df = df.copy()
 
-    df["high_amount_flag"] = df["amount"] > 5000
+    high_amount_threshold = config["fraud_rules"]["high_amount_threshold"]
+    df["high_amount_flag"] = df["amount"] > high_amount_threshold
 
     tx_counts = df["user_id"].value_counts()
     df["many_transactions_flag"] = df["user_id"].map(tx_counts) > 2
