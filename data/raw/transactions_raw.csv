@@ -1,0 +1,12 @@
+transaction_id,user_id,amount,timestamp,country,status
+tx001,user_101,120.50,2025-01-01 10:01:22,DE,completed
+tx002,user_102,5400.00,2025-01-01 10:02:10,FR,completed
+tx003,user_103,75.20,2025-01-01 10:03:55,IT,completed
+tx004,user_104,-20.00,2025-01-01 10:04:01,ES,failed
+tx005,user_105,300.00,2025-01-01 10:05:33,DE,completed
+tx006,user_101,8900.00,2025-01-01 10:06:10,DE,completed
+tx007,user_106,45.00,2025-01-01 10:06:55,PL,pending
+tx008,user_107,1000.00,2025-01-01 10:07:12,FR,completed
+tx009,user_108,0.00,2025-01-01 10:08:40,IT,failed
+tx010,user_109,150.75,2025-01-01 10:09:01,DE,completed
+tx010,user_109,150.75,2025-01-01 10:09:01,DE,completed
