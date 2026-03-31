@@ -1,15 +1,17 @@
 import pandas as pd
 from pathlib import Path
 from src.utils.logger import get_logger
+from src.utils.config import load_config
 
 logger = get_logger(__name__)
+config = load_config()
 
-SILVER_PATH = Path("data/silver/transactions_clean.csv")
+SILVER_PATH = Path(config["paths"]["silver"])
 
 def main():
     logger.info("Starting analytics job...")
 
-    df = pd.read_csv(SILVER_PATH)
+    df = pd.read_parquet(SILVER_PATH)
 
     total_transactions = len(df)
     total_revenue = df["amount"].sum()

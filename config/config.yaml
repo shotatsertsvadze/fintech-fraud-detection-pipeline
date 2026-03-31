@@ -1,7 +1,7 @@
 paths:
   raw: data/raw/transactions_raw.csv
-  silver: data/silver/transactions_clean.csv
-  gold: data/gold/daily_fraud_summary.csv
+  silver: data/silver/transactions_clean.parquet
+  gold: data/gold/daily_fraud_summary.parquet
 
 fraud_rules:
   high_amount_threshold: 5000

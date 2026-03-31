@@ -1,9 +1,0 @@
-transaction_id,user_id,amount,timestamp,country,status,transaction_date,high_amount_flag,many_transactions_flag,suspicious_country_flag,fraud_score,fraud_flag,risk_level
-TX001,USER_101,120.5,2025-01-01 10:01:22,DE,approved,2025-01-01,False,False,False,0,0,low
-TX002,USER_102,5400.0,2025-01-01 10:02:10,FR,approved,2025-01-01,True,False,False,50,1,medium
-TX003,USER_103,75.2,2025-01-01 10:03:55,IT,approved,2025-01-01,False,False,False,0,0,low
-TX005,USER_105,300.0,2025-01-01 10:05:33,DE,approved,2025-01-01,False,False,False,0,0,low
-TX006,USER_101,8900.0,2025-01-01 10:06:10,DE,approved,2025-01-01,True,False,False,50,1,medium
-TX007,USER_106,45.0,2025-01-01 10:06:55,PL,pending,2025-01-01,False,False,False,0,0,low
-TX008,USER_107,1000.0,2025-01-01 10:07:12,FR,approved,2025-01-01,False,False,False,0,0,low
-TX010,USER_109,150.75,2025-01-01 10:09:01,DE,approved,2025-01-01,False,False,False,0,0,low

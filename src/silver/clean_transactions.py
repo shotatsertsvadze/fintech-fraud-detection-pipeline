@@ -179,7 +179,7 @@ def main():
     print("\nData types:")
     print(df.dtypes)
 
-    df.to_csv(SILVER_PATH, index=False)
+    df.to_parquet(SILVER_PATH, index=False)
     logger.info(f"Silver file created at: {SILVER_PATH}")
 
 

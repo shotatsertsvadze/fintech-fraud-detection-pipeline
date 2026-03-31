@@ -1,12 +1,14 @@
 import pandas as pd
 from pathlib import Path
 from src.utils.logger import get_logger
+from src.utils.config import load_config
 
 logger = get_logger(__name__)
+config = load_config()
 
-SILVER_PATH = Path("data/silver/transactions_clean.csv")
-GOLD_DIR = Path("data/gold")
-GOLD_PATH = GOLD_DIR / "daily_fraud_summary.csv"
+SILVER_PATH = Path(config["paths"]["silver"])
+GOLD_PATH = Path(config["paths"]["gold"])
+GOLD_DIR = GOLD_PATH.parent  # ✅ fix
 
 def main():
     logger.info("Starting gold layer job...")
@@ -16,7 +18,7 @@ def main():
 
     GOLD_DIR.mkdir(parents=True, exist_ok=True)
 
-    df = pd.read_csv(SILVER_PATH, parse_dates=["transaction_date"])
+    df = pd.read_parquet(SILVER_PATH)
 
     daily_summary = (
         df.groupby("transaction_date", as_index=False)
@@ -32,7 +34,7 @@ def main():
         daily_summary["fraud_transactions"] / daily_summary["total_transactions"]
     )
 
-    daily_summary.to_csv(GOLD_PATH, index=False)
+    daily_summary.to_parquet(GOLD_PATH, index=False)
 
     logger.info(f"Gold file created at: {GOLD_PATH}")
     print(daily_summary)
